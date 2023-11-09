@@ -28,7 +28,7 @@ SECRET_KEY = 'tywn!h9cf)ztvx_u9ylcl*dp(1(a-__@^us!p!zelmm$0v+9cy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-tr94-broadleafcampsit-6j6artp0rch.ws-eu106.gitpod.io','broadleaf-booking-6b23cb1d45f9.herokuapp.com' 'localhost']
+ALLOWED_HOSTS = ['8000-tr94-broadleafcampsit-q5w6cfdkgz9.ws-eu106.gitpod.io','broadleaf-booking.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'broadleaf.wsgi.application'
 # }
 
 DATABASES = {
-     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 # Password validation
@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
