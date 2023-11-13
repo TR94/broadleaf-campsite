@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
@@ -11,33 +11,41 @@ from cloudinary.models import CloudinaryField
 #     duration_of_stay = check_out - check_in
 #     return duration_of_stay
 
-PITCH_CHOICES = ((0, "Tent"), (1, "Caravan"), (2, "Motorhome"), (3, "Van"), (4, "Glamping") )
+class Products(models.Model):
 
-class Book(models.Model):
+    PITCH_CHOICES = ((0, "Tent"), (1, "Caravan"), (2, "Motorhome"), (3, "Van"), (4, "Glamping"))
+    CHECK_OUT_TIME = ((0, "11am"))
+    CHECK_IN_TIME = ((0, "3pm"))
+
+    pitch_type = models.IntegerField(choices=PITCH_CHOICES, default=0)
+    check_in_time = models.IntegerField(choices=CHECK_IN_TIME, default=0)
+    check_out_time = models.IntegerField(choices=CHECK_OUT_TIME, default=0)
+    price = models.FloatField()
+    date = models.DateField()
+    available = models.BooleanField()
+    pitch_image = CloudinaryField('image', default='placeholder')
+
+    # def is_available(self):
+        # how to check dates are not already booked? 
+        # needs to look at pitch_type and then if booked is true for any given date return available as false
+
+
+class Booking(models.Model):
+    product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name="product_type")
     booking_id = models.AutoField(primary_key=True)
-    pitch_type = Products.pitch_type
-    pitch_image = Products.pitch_image
-    check_in = models.DateTimeField() #what is needed in brackets?
-    check_out = models.DateTimeField()
-    duration = duration_of_stay(self)
-    availability = products.availabile 
+    check_in_date = models.DateTimeField(default=datetime.now)
+    check_out_date = models.DateTimeField(default=datetime.now)
     num_guests = models.IntegerField()
-    booking_price = total_price(self)
+    booking_price = models.FloatField()
 
     def duration_of_stay(self):
-        duration_of_stay = self.check_out - self.check_in
+        duration_of_stay = self.check_out_date - self.check_in_date
         return duration_of_stay
 
     def total_price(self):
-        total_price = products.price * self.duration
+        duration_of_stay = self.duration_of_stay()
+        total_price = self.product.price * duration_of_stay.days
         return total_price
 
-class Products(models.Model):
-    pitch_type = models.IntegerField(choices=PITCH_CHOICES, default=0)
-    price = models.FloatField()
-    available = models.BooleanField().is_available()
-    pitch-image = loudinaryField('image', default='placeholder')
-
-    def is_available(self):
-        #how to check dates are not already booked? 
-        # needs to look at pitch_type and then if booked is true for any given date return available as false
+    def __str__(self):
+        return f"Booking made for {self.check_in_date} for {self.duration_of_stay()}"
