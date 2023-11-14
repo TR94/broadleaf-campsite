@@ -1,6 +1,16 @@
 from django.contrib import admin
 from .models import Product, Booking
 
-admin.site.register(Product)
-admin.site.register(Booking)
+@admin.register(Booking)
+class BookingAdmin(admin.ModelAdmin):
+    list_filter = ('product', 'check_in_date')
+    search_fields = ['product', 'check_in_date']
+    list_display = ('product', 'booking_id', 'check_in_date', 'check_out_date', 'num_guests')
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_filter = ('pitch_ID', 'date')
+    search_fields = ['pitch_ID', 'date']
+    list_display = ('pitch_ID', 'pitch_type', 'price')
 
