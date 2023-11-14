@@ -6,7 +6,7 @@ from .models import Product
 
 class ProductList(generic.ListView):
     model = Product
-    queryset = Product.onjects.values_list("pitch_type")
+    queryset = Product.objects.values_list("pitch_type")
     template_name = 'booking.html'
 
 
