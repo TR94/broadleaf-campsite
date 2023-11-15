@@ -19,10 +19,22 @@ footer {
 
 /*------------------------------------- Index.html --*/
 
+/* image: https://www.pexels.com/photo/scenic-autumn-landscape-with-a-river-18656974/ */
+
 .hero {
         background: url("../images/hero_img.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         min-height: 400px;
+}
+
+/*------------------------------------- Booking.html --*/
+
+.btn {
+    background-color: lightgreen;
+}
+
+table {
+    margin: 20px;
 }

@@ -4,15 +4,26 @@
 
 <!-- include modal with instructions for the website-->
 
-
-<!-- booking table, template from bootstrap -->
-<!-- datepicker and script from -->
 <div class="col-md-8 d-flex flex-column justify-content-start align-items-center">
     <div class="row">
         <div class="col">
-            <h1>Current bookings</h1>
+            <h3>Current bookings</h3>
             <p>View current bookings below for a given date or pitch type</p>
-            <!-- Date picker-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 my-2">
+                        <a class="btn" href="" role="button">Book Now</a>
+                    </div>
+                    <div class="col-12 col-md-4 my-2">
+                        <button id="" class="btn" role="button">Show All</button>
+                    </div>
+                    <div class="col-12 col-md-4 my-2">
+                        <button id="" class="btn" role="button">My Bookings</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- datepicker and script from Youtube: 'How to add Datepicker in Bootstrap 4 and 5' by Frontend Paathshala-->
             <form>
                 <div class="row form-group">
                     <label for="date" class="col-sm-1 col-form-label">Date</label>
@@ -29,6 +40,8 @@
                 </div>
             </form>
         </div>
+
+        <!-- booking table, template from bootstrap -->
         <div class="row">
             <table class="table" >
                 <thead>
