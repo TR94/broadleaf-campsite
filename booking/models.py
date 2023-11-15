@@ -42,6 +42,7 @@ class Booking(models.Model):
     num_guests = models.IntegerField()
     booking_price = models.FloatField()
 
+
     def duration_of_stay(self):
         duration_of_stay = self.check_out_date - self.check_in_date
         return duration_of_stay

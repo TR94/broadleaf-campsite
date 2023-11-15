@@ -14,5 +14,3 @@ class BookingList(generic.ListView):
     model = Booking
     queryset = Booking.objects.filter(check_in_date=datetime.now())
     template_name = 'booking.html'
-
-
