@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- include modal with instructions for the website-->
+
+
+<!-- booking table, template from bootstrap -->
+<!-- datepicker and script from -->
+<div class="col-md-8 d-flex flex-column justify-content-start align-items-center">
+    <div class="row">
+        <div class="col">
+            <h1>Current bookings</h1>
+            <p>View current bookings below for a given date or pitch type</p>
+            <!-- Date picker-->
+            <form>
+                <div class="row form-group">
+                    <label for="date" class="col-sm-1 col-form-label">Date</label>
+                    <div class="col-sm-4">
+                        <div class="input-group date" id="datepicker">
+                            <input type="text" class="form-control">
+                            <span class="input-group-append">
+                                <span class="input-group-text bg-white d-block">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <table class="table" >
+                <thead>
+                <tr>
+                    <th scope="col">Pitch Type</th>
+                    <th scope="col">Pitch</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Duration</th>
+                </tr>
+                </thead>
+                {% for booking in booking_list %}
+                    <tbody>
+                        <td>{{ booking.pitch_type }}</td>
+                        <td>{{ booking.product }}</td>
+                        <td>{{ booking.check_in_date }}</td>
+                        <td>{{ booking.duration }}</td>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $('#datepicker').datepicker();
+    });
+</script>
+
+{%endblock%}
