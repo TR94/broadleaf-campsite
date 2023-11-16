@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.views import generic
 from .models import Product, Booking
+from .forms import BookingForm
 from datetime import datetime
 
 # create, view(read), edit(update), cancel(delete)
@@ -30,23 +32,24 @@ def make_booking(request):
             check_in = form.cleaned_data['check_in_date']
             check_out = form.cleaned_data['check_out_date']
             num_guests = form.cleaned_data['num_guests']
+            duration = duration_of_stay()
             return_check_in_date = check_in.strftime("%Y%m%d%H%M%S")
 
             booking_clash = Booking.objects.filter(
                 pitch_ID=pitch_ID, check_in_date=check_in).count()
 
             if booking_clash >= 1:
-                messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
+                messages.error(request, f'{pitch} is not available on {return_check_in_date}.')
                 return redirect('create_booking')
             else:
                 form.instance.user = user
                 form.save()
                 messages.success(
-                    request, f'Your booking for a {pitch_type}, number: {pitch_ID}'
+                    request, f'Your booking for a {pitch_type}, number: {pitch}'
                     'has been made successfully.')
                 return redirect('view_booking')
     form = BookingForm()
     context = {
         'form': form
     }
-    return render(request, 'bookings/make_booking.html', context)
+    return render(request, 'make_booking.html', context)
