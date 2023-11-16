@@ -4,20 +4,20 @@
 
 <!-- include modal with instructions for the website-->
 
-<div class="col-md-8 d-flex flex-column justify-content-start align-items-center">
+<div class="col-md-8 offset-md-2">
     <div class="row">
         <div class="col">
             <h3>Current bookings</h3>
             <p>View current bookings below for a given date or pitch type</p>
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-md-4 my-2">
-                        <a class="btn btn-green" href="" role="button">Book Now</a>
+                    <div class="col-12 col-md-3 my-2">
+                        <a class="btn btn-green" href="{% url 'make_booking' %}" role="button">Book Now</a>
                     </div>
-                    <div class="col-12 col-md-4 my-2">
+                    <div class="col-12 col-md-3 my-2">
                         <button class="btn btn-green" role="button">Show All</button>
                     </div>
-                    <div class="col-12 col-md-4 my-2">
+                    <div class="col-12 col-md-3 my-2">
                         <button class="btn btn-green" role="button">My Bookings</button>
                     </div>
                 </div>
@@ -43,14 +43,14 @@
 
         <!-- booking table, template from bootstrap -->
         <div class="row">
-            <div class = "col-md-8 mt3 offset-md-2">
-                <table>
+            <div class = "col-md-8">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col">Pitch Type</th>
                         <th scope="col">Pitch</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Duration</th>
+                        <th scope="col">Duration (Days)</th>
                     </tr>
                     </thead>
                     {% for booking in booking_list %}

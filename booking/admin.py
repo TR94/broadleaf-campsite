@@ -10,7 +10,7 @@ class BookingAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_filter = ('pitch_ID', 'date')
-    search_fields = ['pitch_ID', 'date']
+    list_filter = ('pitch_ID', 'pitch_type')
+    search_fields = ['pitch_ID', 'pitch_type']
     list_display = ('pitch_ID', 'pitch_type', 'price')
 
