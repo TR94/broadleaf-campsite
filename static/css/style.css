@@ -1,7 +1,7 @@
 
 
 
-/*------------------------------------- Base.html --*/
+/*------------------------------------- General Styling --*/
 
 h1 {
     font-family: 'Roboto', sans-serif;
@@ -13,6 +13,10 @@ body {
 }
 
 footer {
+    background-color: lightgreen;
+}
+
+.btn-green {
     background-color: lightgreen;
 }
 
