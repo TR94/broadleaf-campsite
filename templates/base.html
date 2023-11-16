@@ -11,7 +11,7 @@
   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <!-- Bootstrap, JQuery and Font Awesome CDNs -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -61,6 +61,20 @@
       </div>
     </nav>
 
+    <!-- Messages code - from I Think Therefore I Blog walkthrough project -->
+    <div class="container">
+      <div class="row">
+          <div class="col-md-8 offset-md-2">
+              {% for message in messages %}
+              <div class="alert {{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
+                  {{ message | safe }}
+                  <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+
     <main class="flex-shrink-0 main-bg">
         {% block content %}
         <!-- Content Goes here -->
@@ -75,5 +89,14 @@
         <p class="m-0 text-center"><i class="fa fa-map-marker" aria-hidden="true"></i> Forest Of Dean </p>
         <p class="m-0 text-center"><i class="fa fa-phone-square" aria-hidden="true"></i> 01234 567890</p>
     </footer>
+
+    <!-- Timeout JS function for messages to auto-disappear. Taken from I Think Therefore I Blog walkthrough project -->
+    <script>
+      setTimeout(function() {
+        let messages = document.getElementById("msg");
+        let alert = new bootstrap.Alert(messages);
+        alert.close();
+      }, 3000);
+    </script>
 </body>
 </html>
