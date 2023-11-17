@@ -1,9 +1,9 @@
-
+/* Note: most of the styling comes from standard Bootstrap 5 classes */
 
 
 /*------------------------------------- General Styling --*/
 
-h1 {
+h1, h2, h3 {
     font-family: 'Roboto', sans-serif;
 }
 
