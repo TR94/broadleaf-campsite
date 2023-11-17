@@ -32,7 +32,8 @@ def make_booking(request):
             check_in = form.cleaned_data['check_in_date']
             check_out = form.cleaned_data['check_out_date']
             num_guests = form.cleaned_data['num_guests']
-            duration = duration_of_stay()
+
+            # duration = Booking.duration_of_stay(self)
             return_check_in_date = check_in.strftime("%Y%m%d%H%M%S")
 
             booking_clash = Booking.objects.filter(
@@ -53,3 +54,4 @@ def make_booking(request):
         'form': form
     }
     return render(request, 'make_booking.html', context)
+

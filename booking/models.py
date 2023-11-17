@@ -46,9 +46,15 @@ class Booking(models.Model):
         return duration_of_stay
 
     def total_price(self):
-        duration_of_stay = self.duration_of_stay()
-        total_price = self.product.price * duration_of_stay.days
+        duration_of_stay = Booking.duration_of_stay(self)
+        total_price = self.Product.price * duration_of_stay.days
         return total_price
 
     def __str__(self):
         return f"{self.booking_id} for {self.product}"
+
+    def save(self, *args, **kwargs):
+	    self.duration = Booking.duration_of_stay(self)
+        self.booking_price = Booking.total_price(self)
+
+	    super(Booking, self).save(*args, **kwargs)

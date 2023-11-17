@@ -29,7 +29,7 @@ SECRET_KEY = 'tywn!h9cf)ztvx_u9ylcl*dp(1(a-__@^us!p!zelmm$0v+9cy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-tr94-broadleafcampsit-kzevk4uqrqj.ws-eu106.gitpod.io','broadleaf-booking-6b23cb1d45f9.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['8000-tr94-broadleafcampsit-qqj6rnpy26i.ws-eu106.gitpod.io','broadleaf-booking-6b23cb1d45f9.herokuapp.com', 'localhost']
 
 
 # Application definition
