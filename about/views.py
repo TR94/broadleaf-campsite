@@ -1,6 +1,17 @@
-from django.views.generic.base import TemplateView
+from django.shortcuts import render
+from .models import About
 
-# code template from Bootstrap documentation 
 
-class AboutView(TemplateView):
-	template_name = 'about.html'
+def AboutView(request, *args, **kwargs):
+    """
+    Renders the About page
+    """
+    about = About.objects.all().first()
+
+    return render(
+        request,
+        "about.html",
+        {
+            "about": about
+        },
+    )
