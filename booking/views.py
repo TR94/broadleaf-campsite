@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views import generic
+from django.views.generic.list import ListView
 from .models import Product, Booking
-from .forms import BookingForm
 from datetime import datetime
+from .filters import BookingFilter
 
 # create, view(read), edit(update), cancel(delete)
 
@@ -14,10 +15,35 @@ class ProductList(generic.ListView):
     queryset = Product.objects.values_list("pitch_type")
     template_name = 'index.html'
 
-class BookingList(generic.ListView):
-    model = Booking
-    queryset = Booking.objects.filter(check_in_date=datetime.now())
+# class BookingList(generic.ListView):
+#     model = Booking
+#     queryset = Booking.objects.filter(BookingFilter)
+#     template_name = 'view_booking.html'
+
+# def booking_table(request):
+#     booking_filter = BookingFilter(request.GET, queryset=Booking.objects.all())
+#     context = {
+#         'form': booking_filter.form,
+#         'bookings': booking_filter.qs
+#     }
+#     return render(request, "view_booking.html", context)
+
+# view with queryset Django filters from Youtube - BugBytes: https://www.youtube.com/watch?v=FTUxl5ZCMb8
+class BookingList(ListView):
+    queryset = Booking.objects.all()
     template_name = 'view_booking.html'
+    context_object_name = 'booking'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = BookingFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
+
 
 @login_required()
 def make_booking(request):

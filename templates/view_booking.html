@@ -24,7 +24,7 @@
             </div>
 
             <!-- datepicker and script from Youtube: 'How to add Datepicker in Bootstrap 4 and 5' by Frontend Paathshala-->
-            <form>
+            <!-- <form>
                 <div class="row form-group">
                     <label for="date" class="col-sm-1 col-form-label">Date</label>
                     <div class="col-sm-4">
@@ -39,10 +39,16 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </div> -->
 
         <!-- booking table, template from bootstrap -->
         <div class="row">
+            <div class="col-md-8">
+                <form method="GET" action="{% url 'booking_table' %}">
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" class="btn btn-green"/>
+                </form>
+            </div>
             <div class = "col-md-8">
                 <table class="table table-striped">
                     <thead>
@@ -53,7 +59,7 @@
                         <th scope="col">Duration (Days)</th>
                     </tr>
                     </thead>
-                    {% for booking in booking_list %}
+                    {% for booking in booking %}
                         <tbody>
                             <td>{{ booking.pitch_ID.pitch_type }}</td>
                             <td>{{ booking.pitch_ID }}</td>
