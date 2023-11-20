@@ -25,7 +25,6 @@ class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     f_name = models.CharField(max_length=15)
     l_name = models.CharField(max_length=25)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_type")
     pitch_ID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="booking_pitch", to_field="pitch_ID")
     booking_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True) 
     check_in_date = models.DateField(default=date.today)
@@ -47,15 +46,13 @@ class Booking(models.Model):
 
     def total_price(self):
         duration_of_stay = Booking.duration_of_stay(self)
-        total_price = self.Product.price * duration_of_stay.days
+        total_price = self.pitch_ID.price * duration_of_stay
         return total_price
 
     def __str__(self):
         return f"{self.booking_id} for {self.product}"
 
     def save(self, *args, **kwargs):
-	    self.duration = Booking.duration_of_stay()
-        # self.booking_price = Booking.total_price()
-
-
-	    super(Booking, self).save(*args, **kwargs)
+        self.duration = Booking.duration_of_stay(self)
+        self.booking_price = Booking.total_price(self)
+        super(Booking, self).save(*args, **kwargs)

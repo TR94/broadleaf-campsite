@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views import generic
 from .models import Product, Booking
@@ -40,14 +41,15 @@ def make_booking(request):
                 pitch_ID=pitch_ID, check_in_date=check_in).count()
 
             if booking_clash >= 1:
-                messages.error(request, f'{pitch} is not available on {return_check_in_date}.')
-                return redirect('create_booking')
+                messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
+                return redirect('make_booking')
             else:
                 form.instance.user = user
                 form.save()
                 messages.success(
-                    request, f'Your booking for a {pitch_type}, number: {pitch}'
-                    'has been made successfully.')
+                    request, f"Your booking for a {pitch_ID.pitch_type}, number: {pitch_ID}"
+                    "has been made successfully.")
+
                 return redirect('view_booking')
     form = BookingForm()
     context = {

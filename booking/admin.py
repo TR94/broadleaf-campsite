@@ -3,9 +3,9 @@ from .models import Product, Booking
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_filter = ('product', 'check_in_date')
-    search_fields = ['product', 'check_in_date']
-    list_display = ('product', 'booking_id', 'check_in_date', 'check_out_date', 'num_guests')
+    list_filter = ('pitch_ID', 'check_in_date')
+    search_fields = ['pitch_ID', 'check_in_date']
+    list_display = ('pitch_ID', 'booking_id', 'check_in_date', 'check_out_date', 'num_guests')
 
 
 @admin.register(Product)
