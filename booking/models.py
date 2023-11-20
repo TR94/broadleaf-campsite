@@ -4,12 +4,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-PITCH_CHOICES = ((0, "Tent"), (1, "Caravan"), (2, "Motorhome"), (3, "Van"), (4, "Glamping"))
+PITCH_CHOICES = (("Tent", "Tent"), ("Caravan", "Caravan"), ("Motorhome", "Motorhome"), ("Van", "Van"), ("Glamping", "Glamping"))
 CHECK_OUT_TIME = ((11, "11am"), (11, "11am"))
 CHECK_IN_TIME = ((3, "3pm"), (3, "3pm"))
 
 class Product(models.Model):
-    pitch_type = models.IntegerField(choices=PITCH_CHOICES, default=0)
+    pitch_type = models.TextField(choices=PITCH_CHOICES, default=0)
     pitch_ID = models.CharField(max_length = 6, unique = True)
     check_in_time = models.IntegerField(choices=CHECK_IN_TIME, default=0)
     check_out_time = models.IntegerField(choices=CHECK_OUT_TIME, default=0)
@@ -23,14 +23,14 @@ class Product(models.Model):
 # UUID field from StackOverflow resource: https://stackoverflow.com/questions/32528224/how-to-use-uuid
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
-    f_name = models.CharField(max_length=15)
-    l_name = models.CharField(max_length=25)
+    first_name = models.CharField(max_length=15)
+    last_name = models.CharField(max_length=25)
     pitch_ID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="booking_pitch", to_field="pitch_ID")
     booking_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True) 
     check_in_date = models.DateField(default=date.today)
     check_out_date = models.DateField(default=date.today)
     duration = models.IntegerField()
-    num_guests = models.IntegerField()
+    number_of_guests = models.IntegerField()
     booking_price = models.FloatField()
 
 
@@ -50,7 +50,7 @@ class Booking(models.Model):
         return total_price
 
     def __str__(self):
-        return f"{self.booking_id} for {self.product}"
+        return f"{self.booking_id} for {self.pitch_ID.pitch_type}"
 
     def save(self, *args, **kwargs):
         self.duration = Booking.duration_of_stay(self)

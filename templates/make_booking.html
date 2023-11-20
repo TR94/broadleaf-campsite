@@ -8,11 +8,11 @@
             <h3>Make a new booking</h3>
             <form id="booking-form" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.as_p}}
                 <p>
                     <button class="btn btn-green" type="submit" role="button">Submit</button>
                 <hr>
-                <a class="btn" href="{% url 'view_booking' %}" role="button">Go Back</a>
+                <a class="btn btn-green" href="{% url 'view_booking' %}" role="button">Go Back</a>
                 </p>
             </form>
         </div>

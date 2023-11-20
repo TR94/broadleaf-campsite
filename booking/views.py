@@ -27,15 +27,15 @@ def make_booking(request):
         form = BookingForm(request.POST)
         if form.is_valid():
 
-            first_name = form.cleaned_data['f_name']
-            last_name = form.cleaned_data['l_name']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
             pitch_ID = form.cleaned_data['pitch_ID']
             check_in = form.cleaned_data['check_in_date']
             check_out = form.cleaned_data['check_out_date']
-            num_guests = form.cleaned_data['num_guests']
+            num_guests = form.cleaned_data['number_of_guests']
 
             # duration = Booking.duration_of_stay(self)
-            return_check_in_date = check_in.strftime("%Y%m%d%H%M%S")
+            return_check_in_date = check_in.strftime("%Y%m%d")
 
             booking_clash = Booking.objects.filter(
                 pitch_ID=pitch_ID, check_in_date=check_in).count()
@@ -47,8 +47,7 @@ def make_booking(request):
                 form.instance.user = user
                 form.save()
                 messages.success(
-                    request, f"Your booking for a {pitch_ID.pitch_type}, number: {pitch_ID}"
-                    "has been made successfully.")
+                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
 
                 return redirect('view_booking')
     form = BookingForm()

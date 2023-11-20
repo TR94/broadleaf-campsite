@@ -5,7 +5,7 @@ from .models import Product, Booking
 class BookingAdmin(admin.ModelAdmin):
     list_filter = ('pitch_ID', 'check_in_date')
     search_fields = ['pitch_ID', 'check_in_date']
-    list_display = ('pitch_ID', 'booking_id', 'check_in_date', 'check_out_date', 'num_guests')
+    list_display = ('pitch_ID', 'booking_id', 'last_name', 'check_in_date', 'check_out_date', 'number_of_guests', 'booking_price')
 
 
 @admin.register(Product)
