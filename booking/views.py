@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views import generic
 from django.views.generic.list import ListView
+from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .models import Product, Booking
 from datetime import datetime
 from .filters import BookingFilter
@@ -29,6 +32,7 @@ class ProductList(generic.ListView):
 #     return render(request, "view_booking.html", context)
 
 # view with queryset Django filters from Youtube - BugBytes: https://www.youtube.com/watch?v=FTUxl5ZCMb8
+# view(read) all bookings 
 class BookingList(ListView):
     queryset = Booking.objects.all()
     template_name = 'view_booking.html'
@@ -44,7 +48,21 @@ class BookingList(ListView):
         context['form'] = self.filterset.form
         return context
 
+# view(read) only user's bookings
+# @method_decorator(login_required, name='booking.views.MyBookings')
+# class MyBookings(generic.ListView):
+#     model = Booking
+#     queryset = Booking.objects.all()
+#     template_name = 'my_booking.html'
 
+class MyBookings(TemplateView):
+    template_name = "my_booking.html"
+
+    @method_decorator(login_required)
+    def my_booking(self, *args, **kwargs):
+        return super().my_booking(*args, **kwargs)
+
+# make (create) a booking
 @login_required()
 def make_booking(request):
 
@@ -60,11 +78,9 @@ def make_booking(request):
             check_out = form.cleaned_data['check_out_date']
             num_guests = form.cleaned_data['number_of_guests']
 
-            # duration = Booking.duration_of_stay(self)
             return_check_in_date = check_in.strftime("%Y%m%d")
 
-            booking_clash = Booking.objects.filter(
-                pitch_ID=pitch_ID, check_in_date=check_in).count()
+            booking_clash = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date=check_in).count()
 
             if booking_clash >= 1:
                 messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
@@ -81,4 +97,3 @@ def make_booking(request):
         'form': form
     }
     return render(request, 'make_booking.html', context)
-

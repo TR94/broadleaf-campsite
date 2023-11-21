@@ -36,8 +36,8 @@ class Booking(models.Model):
 
     def duration_of_stay(self):
         
-        out_string = self.check_out_date.strftime("%Y%m%d%H%M%S")
-        in_string = self.check_in_date.strftime("%Y%m%d%H%M%S")
+        out_string = self.check_out_date.strftime("%Y%m%d")
+        in_string = self.check_in_date.strftime("%Y%m%d")
         out_int = int(out_string)
         in_int = int(in_string)
         duration_of_stay =  out_int - in_int
