@@ -33,6 +33,7 @@
                         <th scope="col">Pitch</th>
                         <th scope="col">Date</th>
                         <th scope="col">Duration (Days)</th>
+                        <th colspan="2">Amend Booking</th>
                     </tr>
                     </thead>
                     {% for booking in booking_list %}
@@ -41,21 +42,13 @@
                                 <td>{{ booking.pitch_ID }}</td>
                                 <td>{{ booking.check_in_date }}</td>
                                 <td>{{ booking.duration_of_stay }}</td>
+                                <td><a>Edit</a></td>
+                                <td><a data-bs-toggle="modal" data-bs-target="#modal-cancel">Cancel</a></td>
+                                <!-- booking.booking_id cancel based on the line in the table??? -->
+                                <!-- checkout how to do modals from walkthough  -->
                             </tbody>
                     {% empty %}
                         <td>Sorry, you have no bookings.</td>
-                        <td>---</td>
-                        <td>---</td>
-                        <td>---</td>
-                    {% endfor %}
-
-                    {% for booking in booking %}
-                        <tbody>
-                            <td>{{ booking.pitch_ID.pitch_type }}</td>
-                            <td>{{ booking.pitch_ID }}</td>
-                            <td>{{ booking.check_in_date }}</td>
-                            <td>{{ booking.duration_of_stay }}</td>
-                        </tbody>
                     {% endfor %}
                 </table>
             </div>

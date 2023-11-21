@@ -79,3 +79,10 @@ def make_booking(request):
         'form': form
     }
     return render(request, 'make_booking.html', context)
+
+# cancel (delete) a booking - user only
+@login_required()
+def cancel_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    booking.delete()
+    return redirect('view_booking')
