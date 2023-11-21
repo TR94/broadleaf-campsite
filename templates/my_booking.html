@@ -15,7 +15,7 @@
                         <a class="btn btn-green" href="{% url 'make_booking' %}" role="button">Book Now</a>
                     </div>
                     <div class="col-12 col-md-3 my-2">
-                        <a class="btn btn-green" href="{% url 'booking_table' %}"role="button">Show All</a>
+                        <a class="btn btn-green" href="{% url 'view_booking' %}"role="button">Show All</a>
                     </div>
                     <div class="col-12 col-md-3 my-2">
                         <button class="btn btn-green" role="button">My Bookings</button>
@@ -25,12 +25,6 @@
 
         <!-- booking table, template from bootstrap -->
         <div class="row">
-            <div class="col-md-8">
-                <form method="GET" action="{% url 'booking_table' %}">
-                    {{ form.as_p }}
-                    <input type="submit" value="Submit" class="btn btn-green"/>
-                </form>
-            </div>
             <div class = "col-md-8">
                 <table class="table table-striped">
                     <thead>
@@ -41,21 +35,27 @@
                         <th scope="col">Duration (Days)</th>
                     </tr>
                     </thead>
-                    {% for booking in booking %}
-                        {% if booking.user == request.user %}
+                    {% for booking in booking_list %}
                             <tbody>
                                 <td>{{ booking.pitch_ID.pitch_type }}</td>
                                 <td>{{ booking.pitch_ID }}</td>
                                 <td>{{ booking.check_in_date }}</td>
                                 <td>{{ booking.duration_of_stay }}</td>
                             </tbody>
-                        {% endif %}
-                    
                     {% empty %}
                         <td>Sorry, you have no bookings.</td>
                         <td>---</td>
                         <td>---</td>
                         <td>---</td>
+                    {% endfor %}
+
+                    {% for booking in booking %}
+                        <tbody>
+                            <td>{{ booking.pitch_ID.pitch_type }}</td>
+                            <td>{{ booking.pitch_ID }}</td>
+                            <td>{{ booking.check_in_date }}</td>
+                            <td>{{ booking.duration_of_stay }}</td>
+                        </tbody>
                     {% endfor %}
                 </table>
             </div>

@@ -6,10 +6,11 @@ from django.views import generic
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product, Booking
 from datetime import datetime
 from .filters import BookingFilter
+from .forms import BookingForm
 
 # create, view(read), edit(update), cancel(delete)
 
@@ -17,19 +18,6 @@ class ProductList(generic.ListView):
     model = Product
     queryset = Product.objects.values_list("pitch_type")
     template_name = 'index.html'
-
-# class BookingList(generic.ListView):
-#     model = Booking
-#     queryset = Booking.objects.filter(BookingFilter)
-#     template_name = 'view_booking.html'
-
-# def booking_table(request):
-#     booking_filter = BookingFilter(request.GET, queryset=Booking.objects.all())
-#     context = {
-#         'form': booking_filter.form,
-#         'bookings': booking_filter.qs
-#     }
-#     return render(request, "view_booking.html", context)
 
 # view with queryset Django filters from Youtube - BugBytes: https://www.youtube.com/watch?v=FTUxl5ZCMb8
 # view(read) all bookings 
@@ -49,18 +37,12 @@ class BookingList(ListView):
         return context
 
 # view(read) only user's bookings
-# @method_decorator(login_required, name='booking.views.MyBookings')
-# class MyBookings(generic.ListView):
-#     model = Booking
-#     queryset = Booking.objects.all()
-#     template_name = 'my_booking.html'
+class MyBookings(LoginRequiredMixin, ListView):
+    model = Booking
+    template_name = 'my_booking.html'
 
-class MyBookings(TemplateView):
-    template_name = "my_booking.html"
-
-    @method_decorator(login_required)
-    def my_booking(self, *args, **kwargs):
-        return super().my_booking(*args, **kwargs)
+    def get_queryset(self):
+        return Booking.objects.filter(user=self.request.user)
 
 # make (create) a booking
 @login_required()

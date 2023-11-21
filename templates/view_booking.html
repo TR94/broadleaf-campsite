@@ -15,7 +15,7 @@
                         <a class="btn btn-green" href="{% url 'make_booking' %}" role="button">Book Now</a>
                     </div>
                     <div class="col-12 col-md-3 my-2">
-                        <a class="btn btn-green" href="{% url 'booking_table' %}"role="button">Show All</a>
+                        <a class="btn btn-green" href="{% url 'view_booking' %}"role="button">Show All</a>
                     </div>
                     <div class="col-12 col-md-3 my-2">
                         <a class="btn btn-green" href="{% url 'my_bookings' %}" role="button">My Bookings</a>
@@ -26,7 +26,7 @@
         <!-- booking table, template from bootstrap -->
         <div class="row">
             <div class="col-md-8">
-                <form method="GET" action="{% url 'booking_table' %}">
+                <form method="GET" action="{% url 'view_booking' %}">
                     {{ form.as_p }}
                     <input type="submit" value="Submit" class="btn btn-green"/>
                 </form>
@@ -55,4 +55,4 @@
     </div>
 </div>
 
-{%endblock%}
+{% endblock %}

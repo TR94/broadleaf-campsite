@@ -2,6 +2,10 @@ from datetime import date
 from django import forms
 from .models import Booking, Product
 
+class DateInput(forms.DateInput):
+    # date input widget
+    input_type = 'date'
+
 class BookingForm(forms.ModelForm):
 # date input widget from: https://www.letscodemore.com/blog/how-to-add-date-input-widget-in-django-forms/
     class Meta:
