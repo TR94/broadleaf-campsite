@@ -18,7 +18,7 @@
                         <a class="btn btn-green" href="{% url 'view_booking' %}"role="button">Show All</a>
                     </div>
                     <div class="col-12 col-md-3 my-2">
-                        <button class="btn btn-green" role="button">My Bookings</button>
+                        <button class="btn btn-green" href="{% url 'my_bookings' %}" role="button">My Bookings</button>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,11 @@
                                 <td>{{ booking.pitch_ID }}</td>
                                 <td>{{ booking.check_in_date }}</td>
                                 <td>{{ booking.duration_of_stay }}</td>
-                                <td><a>Edit</a></td>
+                                <td>
+                                    <a href="/edit/{{ booking.id }}">
+                                        <button class="btn btn-green btn-sm">Edit</button>
+                                    </a>
+                                </td>
                                 <td><a data-bs-toggle="modal" data-bs-target="#modal-cancel">Cancel</a></td>
                                 <!-- booking.booking_id cancel based on the line in the table??? -->
                                 <!-- checkout how to do modals from walkthough  -->

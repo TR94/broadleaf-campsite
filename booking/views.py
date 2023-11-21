@@ -80,6 +80,23 @@ def make_booking(request):
     }
     return render(request, 'make_booking.html', context)
 
+# edit (update) a booking - only bookings specific to that user
+def edit_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    
+    if request.method == 'POST':
+        form= BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            return redirect('view_booking')
+
+    form = BookingForm(instance=booking)
+    context = {
+        'form': form
+    }
+    return render(request, 'edit_booking.html', context)
+   
+
 # cancel (delete) a booking - user only
 @login_required()
 def cancel_booking(request, booking_id):
