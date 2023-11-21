@@ -36,14 +36,6 @@ class BookingList(ListView):
         context['form'] = self.filterset.form
         return context
 
-# view(read) only user's bookings
-class MyBookings(LoginRequiredMixin, ListView):
-    model = Booking
-    template_name = 'my_booking.html'
-
-    def get_queryset(self):
-        return Booking.objects.filter(user=self.request.user)
-
 # make (create) a booking
 @login_required()
 def make_booking(request):
@@ -79,6 +71,14 @@ def make_booking(request):
         'form': form
     }
     return render(request, 'make_booking.html', context)
+
+# view(read) only user's bookings
+class MyBookings(LoginRequiredMixin, ListView):
+    model = Booking
+    template_name = 'my_booking.html'
+
+    def get_queryset(self):
+        return Booking.objects.filter(user=self.request.user)
 
 # edit (update) a booking - only bookings specific to that user
 def edit_booking(request, booking_id):
