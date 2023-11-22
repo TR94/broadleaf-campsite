@@ -48,13 +48,38 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/cancel/{{ booking.id }}">
-                                        <button class="btn btn-green btn-sm">Cancel</button>
-                                    </a>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
+                                        aria-label="Cancel" class="btn btn-green btn-sm">Cancel</button>
                                 </td>
-                                <!-- <td><a data-bs-toggle="modal" data-bs-target="#modal-cancel">Cancel</a></td> -->
-                                <!-- booking.booking_id cancel based on the line in the table??? -->
-                                <!-- checkout how to do modals from walkthough  -->
+
+                                <!-- modal for confirming cancellation of a booking -->
+                                <div class="modal" id="modal-cancel-{{ booking.booking_id }}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Cancel your booking</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to cancel this booking:</p>
+                                                <p>Name: {{ booking.last_name }}</p>
+                                                <p>Pitch number: {{ booking.pitch_ID}}</p>
+                                                <p>Check In Date: {{ booking.check_in_date }}</p>
+                                                <p>Duration (nights): {{ booking.duration }}</p>
+                                                <hr>
+                                                <p>Confirm cancellation by clicking "cancel booking"</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="/cancel/{{ booking.id }}">
+                                                    <button type="button" class="btn btn-green btn-sm">Cancel booking</button>
+                                                </a>
+                                                <a href="{% url 'my_bookings' %}">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </tbody>
                     {% empty %}
                         <td>Sorry, you have no bookings.</td>
