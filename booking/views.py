@@ -66,6 +66,9 @@ def make_booking(request):
                     request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
 
                 return redirect('view_booking')
+        else:
+            messages.warning(
+                    request, f"Your booking was unsucessful. Please ensure the form was filled in correctly and your request doesn't clash with another booking")
     form = BookingForm()
     context = {
         'form': form

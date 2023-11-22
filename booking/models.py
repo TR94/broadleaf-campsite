@@ -2,6 +2,7 @@ import uuid
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator 
 from cloudinary.models import CloudinaryField
 
 PITCH_CHOICES = (("Tent", "Tent"), ("Caravan", "Caravan"), ("Motorhome", "Motorhome"), ("Van", "Van"), ("Glamping", "Glamping"))
@@ -30,7 +31,7 @@ class Booking(models.Model):
     check_in_date = models.DateField(default=date.today)
     check_out_date = models.DateField(default=date.today)
     duration = models.IntegerField()
-    number_of_guests = models.IntegerField()
+    number_of_guests = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
     booking_price = models.FloatField()
 
 
