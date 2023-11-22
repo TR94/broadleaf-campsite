@@ -36,7 +36,6 @@ footer {
 /*------------------------------------- Booking.html --*/
 
 /*------------------------------------- Contact.html --*/
-#map {
-    min-height: 360px;
-    width: 100%;
-}
+gmp-map {
+    height: 400px;
+  }
