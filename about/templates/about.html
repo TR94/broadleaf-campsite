@@ -5,56 +5,114 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>{{ about.title }}</h3>
+            <h3>About</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <p>{{ about.content }}</p>
+            <p>Welcome to BroadLeaf – Your Gateway to Nature's Serenity in the Heart of the Forest of Dean!</p>
+
+            <p>Escape the hustle and bustle of daily life and immerse yourself in the pristine beauty of the Forest of Dean. 
+                Our camping site offers a perfect blend of tranquility and adventure, nestled within the lush greenery of this 
+                enchanting forest.</p>
+                
+            <p>Why Choose Us:</p>
+            <p>Prime Location: Our campsite is strategically located to provide you with easy access to the Forest of Dean's most 
+                breathtaking spots. Whether you're an avid hiker, nature enthusiast, or just looking for a peaceful retreat, we 
+                have it all.</p>
+            <p>Camp in Comfort: Experience camping like never before with our well-equipped campsites. Choose from a range of camping options, including 
+                traditional tents, RV sites, and cozy cabins. Our amenities ensure you have a comfortable and enjoyable stay surrounded 
+                by nature.</p>
+            <p>Activities for All: From thrilling outdoor adventures to serene nature walks, there's something for everyone. Explore the 
+                forest trails, try your hand at fishing, or simply unwind by the campfire with your loved ones. The Forest of Dean is your playground, 
+                and we provide the perfect base for your adventures.</p>
+            <p>Family-Friendly Atmosphere: Create lasting memories with your family in a safe and family-friendly environment. Our campsite 
+                is designed to cater to the needs of families, ensuring everyone, from the youngest to the oldest, has a memorable experience.</p>
+            
+            <p>Local Attractions:</p>
+            <p>Wye Valley: Just a short drive away, the Wye Valley offers stunning landscapes, charming villages, and outdoor activities 
+                like canoeing and cycling.</p>
+            <p>Clearwell Caves: Delve into the ancient underground world of Clearwell Caves, where you can explore impressive caverns and 
+                learn about the rich mining history of the region.</p>
+            <p>Symonds Yat: Enjoy breathtaking views of the River Wye from Symonds Yat Rock, a popular viewpoint that also offers 
+                opportunities for bird watching.</p>
+            <p>Heritage Centre: Immerse yourself in the history and heritage of the Forest of Dean at the Dean Heritage Centre, featuring 
+                interactive exhibits and outdoor displays.</p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="about-img">
             <!-- about us image -->
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <h3>Facilities</h3>
-        </div>
+        <p>At BroadLeaf Campsite, we understand that a comfortable and enjoyable camping experience goes 
+            hand-in-hand with excellent facilities. Our campsite is equipped with a range of amenities to ensure 
+            that your stay in the Forest of Dean is both memorable and hassle-free.</p>
+        <p>We strive to create an environment where you can connect with nature while enjoying the comforts of modern 
+            amenities. Book your stay with us and experience camping in the Forest of Dean like never before!</p>
+    </div>
+    <div class="row">    
         <div id="facilities-img"class="col-md-6">
             <!-- facilities image -->
         </div>
+        <div class="col-md-6">
+            <h4>Campsite Facilities:</h4>
+                
+            <p><span class="fw-bold">Spacious: </span>Ample space for tents, motorhomes, and campervans, ensuring that you have room to spread 
+                out and enjoy your surroundings.</p>
+            <p>Clean and Modern Bathrooms:Well-maintained restroom facilities with hot showers, ensuring you stay 
+                refreshed after a day of outdoor activities.</p>
+            <p>Campfire Pits:Enjoy the classic camping experience with designated campfire pits. Gather around the 
+                fire with friends and family to share stories and roast marshmallows under the starry Forest of Dean sky.</p>
+            <p>Electric Hookups:For motorhomes and campers, we offer electric hookups to provide you with the convenience 
+                of electricity during your stay.</p>
+            <p>Water Stations:Convenient water stations throughout the campsite to ensure easy access to fresh water for drinking, 
+                cooking, and cleaning.</p>
+            <p>Picnic Areas:Relax and enjoy meals outdoors with designated picnic areas equipped with tables and benches, 
+                surrounded by the beauty of the forest.</p>
+            <p>Children's Play Area:A safe and fun play area for kids, complete with swings and other play equipment to keep 
+                the little ones entertained.</p>
+            <p>Laundry Facilities:On-site laundry facilities for your convenience, ensuring you can refresh your clothes during
+                 an extended stay.</p>
+            <p>Camp Store:Forgot something? Our on-site camp store has a variety of camping essentials, snacks, and other items 
+                to make your stay more comfortable.</p>
+            <p>Waste Disposal:Environmentally conscious waste disposal facilities to ensure that we leave no trace in this beautiful 
+                natural setting.</p>    
+        </div>
     </div>
     <div class="row">
-        <!-- Carousel -->
-        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <hr>
+        <div class="col-md-12 d-flex justify-content-center mb-4">
+            <!-- Carousel from Bootstrap documentation-->
+            <div id="demo" class="carousel slide " data-bs-ride="carousel">
 
-            <!-- Indicators/dots -->
-            <div class="carousel-indicators">
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                </div>
+    
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/Glamp_couple.jpg' %}" alt="Couple outside a Glamping Tent" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/Glamp_woods.jpg' %}" alt="Glamping tent in the woods" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/moho_family.jpg' %}" alt="Family outside their motorhome" class="d-block w-100">
+                    </div>
+                </div>
+    
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                </button>
             </div>
-  
-            <!-- The slideshow/carousel -->
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{% static 'images/Glamp_couple.jpg' %}" alt="Couple outside a Glamping Tent" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{% static 'images/Glamp_woods.jpg' %}" alt="Glamping tent in the woods" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{% static 'images/moho_family.jpg' %}" alt="Family outside their motorhome" class="d-block w-100">
-                </div>
-            </div>
-  
-            <!-- Left and right controls/icons -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            </button>
         </div>
     </div>
 </div>
