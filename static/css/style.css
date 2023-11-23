@@ -35,6 +35,14 @@ footer {
 
 /*------------------------------------- Booking.html --*/
 
+
+/*------------------------------------- About.html --*/
+.carousel {
+    max-width: 600px;
+}
+.carousel-inner {
+    border-radius: 5%;
+}
 /*------------------------------------- Contact.html --*/
 gmp-map {
     height: 400px;
