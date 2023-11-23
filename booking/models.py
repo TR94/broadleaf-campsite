@@ -3,6 +3,7 @@ from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.contrib.postgres.fields import ArrayField
 from cloudinary.models import CloudinaryField
 
 PITCH_CHOICES = (("Tent", "Tent"), ("Caravan", "Caravan"), ("Motorhome", "Motorhome"), ("Van", "Van"), ("Glamping", "Glamping"))
@@ -33,6 +34,7 @@ class Booking(models.Model):
     duration = models.IntegerField()
     number_of_guests = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
     booking_price = models.FloatField()
+    dates_of_stay = ArrayField(models.DateField())
 
 
     def duration_of_stay(self):
@@ -44,11 +46,22 @@ class Booking(models.Model):
         duration_of_stay =  out_int - in_int
 
         return duration_of_stay
-
+    
     def total_price(self):
         duration_of_stay = Booking.duration_of_stay(self)
         total_price = self.pitch_ID.price * duration_of_stay
         return total_price
+
+    def calculate_dates_of_stay(self):
+
+        i = self.check_in_date
+        self.dates_of_stay.append(self.check_in_date)
+        stay = self.check_in_date   
+
+        while i < self.check_out_date:
+            stay = stay + datetime.timedelta(days=1)
+            self.dates_of_stay.append(stay)
+            i = i + datetime.timedelta(days=1)
 
     def __str__(self):
         return f"{self.booking_id} for {self.pitch_ID.pitch_type}"
@@ -56,4 +69,7 @@ class Booking(models.Model):
     def save(self, *args, **kwargs):
         self.duration = Booking.duration_of_stay(self)
         self.booking_price = Booking.total_price(self)
+        self.dates_of_stay = Booking.calculate_dates_of_stay(self)
         super(Booking, self).save(*args, **kwargs)
+
+    

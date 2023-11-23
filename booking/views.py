@@ -55,6 +55,24 @@ def make_booking(request):
             return_check_in_date = check_in.strftime("%Y%m%d")
 
             booking_clash = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date=check_in).count()
+            ###
+            # new_date = datetime.datetime.now().date() + datetime.timedelta(days=2)
+            
+            # booking_clash = 0
+
+            # while check_date < date2:
+            #     print(check_date)
+            #     if check_date == new_date:
+            #         print("CLASH")
+            #         clash +=1
+            #     else:
+            #         print("OK")
+            #     check_date = check_date + datetime.timedelta(days=1)
+            #     print(clash)
+                
+            #     if clash >= 1:
+            #         print("Booking unsucessful")
+            ###
 
             if booking_clash >= 1:
                 messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
