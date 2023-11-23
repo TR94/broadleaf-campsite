@@ -33,28 +33,31 @@
           </gmp-map>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5 mb-5">
         <div class="col-md-4 offset-md-2">
             <h3>Contact Us</h3>
             <p>You can contact us in several ways:
-                <p class="m-0"><i class="fa fa-envelope" aria-hidden="true"></i> info@broadleaf-campsite.com</p>
-                <p class="m-0"><i class="fa fa-map-marker" aria-hidden="true"></i> Forest Of Dean </p>
-                <p class="m-0"><i class="fa fa-phone-square" aria-hidden="true"></i> 01234 567890</p>
+                <hr>
+                <p class="m-2"><i class="fa fa-envelope" aria-hidden="true"></i> info@broadleaf-campsite.com</p>
+                <p class="m-2"><i class="fa fa-map-marker" aria-hidden="true"></i> Forest Of Dean </p>
+                <p class="m-2"><i class="fa fa-phone-square" aria-hidden="true"></i> 01234 567890</p>
                 <hr>
                 <p>Or, if you prefer, fill in the contact form.</p>
             </p>
         </div>
-        <div class="col-md-4 mt-2">
-            <p>Form placeholder...</p>
+        <div class="col-md-4">
+            <form onsubmit="return sendMail(this);">
+                <input type="text" name="name" id="fullname" class="form-control m-2" placeholder="Name" required />
+                <input type="email" name="email" id="emailaddress" class="form-control m-2" placeholder="Email" required />
+                <input type="text" name="phone" id="phonenumber" class="form-control m-2" placeholder="Phone Number" required />
+                <textarea rows="5" name="message" id="message" class="form-control m-2" placeholder="Send us a message" required></textarea>                    <div class="form-row text-center">
+                    <div class="col">
+                        <button type="submit" class="btn btn-green m-2">Send</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-
-
-
-
-<script>
-    var APIKey = 'AIzaSyB7Fs47HLPaCKd51N5wTbD8tc5NvPbKTXs';
-</script>
 {% endblock %}

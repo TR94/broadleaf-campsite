@@ -19,6 +19,15 @@
     
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Fs47HLPaCKd51N5wTbD8tc5NvPbKTXs&callback=console.debug&libraries=maps,marker&v=beta">
     </script>
+
+    <!-- Email JS script for contact form -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+        emailjs.init("LASPK5LNMCED2sjOW");
+      })();
+    </script>
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -94,13 +103,15 @@
         <p class="m-0 text-center"><i class="fa fa-phone-square" aria-hidden="true"></i> 01234 567890</p>
     </footer>
 
-    <!-- Timeout JS function for messages to auto-disappear. Taken from I Think Therefore I Blog walkthrough project -->
-    <script>
-      setTimeout(function() {
-        let messages = document.getElementById("msg");
-        let alert = new bootstrap.Alert(messages);
-        alert.close();
-      }, 10000);
-    </script>
+  <!-- Timeout JS function for messages to auto-disappear. Taken from I Think Therefore I Blog walkthrough project -->
+  <script>
+    setTimeout(function() {
+      let messages = document.getElementById("msg");
+      let alert = new bootstrap.Alert(messages);
+      alert.close();
+    }, 10000);
+  </script>
+  <!-- EmailJS script -->
+  <script src="{% static 'js/sendMail.js' %}"></script>
 </body>
 </html>
