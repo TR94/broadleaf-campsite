@@ -74,7 +74,7 @@ def make_booking(request):
             #         print("Booking unsucessful")
             ###
 
-            if booking_clash >= 1:
+            if booking_clash >= 1: #check dates_of_stay array and return appropriate message
                 messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
                 return redirect('make_booking')
             else:

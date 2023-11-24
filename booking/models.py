@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
@@ -34,8 +35,7 @@ class Booking(models.Model):
     duration = models.IntegerField()
     number_of_guests = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
     booking_price = models.FloatField()
-    dates_of_stay = ArrayField(models.DateField())
-
+    dates_of_stay = ArrayField(models.DateField(), blank=True, null=True,)
 
     def duration_of_stay(self):
         
@@ -62,14 +62,22 @@ class Booking(models.Model):
             stay = stay + datetime.timedelta(days=1)
             self.dates_of_stay.append(stay)
             i = i + datetime.timedelta(days=1)
+        print(self.dates_of_stay)
 
     def __str__(self):
         return f"{self.booking_id} for {self.pitch_ID.pitch_type}"
 
     def save(self, *args, **kwargs):
-        self.duration = Booking.duration_of_stay(self)
-        self.booking_price = Booking.total_price(self)
-        self.dates_of_stay = Booking.calculate_dates_of_stay(self)
+        if not self.duration:
+            self.duration = self.duration_of_stay()
+
+        if not self.booking_price:
+            self.booking_price = self.total_price()
+
+        if not self.dates_of_stay:
+            self.dates_of_stay = []
+            self.calculate_dates_of_stay()
+
         super(Booking, self).save(*args, **kwargs)
 
     
