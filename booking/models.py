@@ -46,6 +46,17 @@ class Booking(models.Model):
         duration_of_stay =  out_int - in_int
 
         return duration_of_stay
+
+        # # dates in string format
+        # str_d1 = '2021/10/20'
+        # str_d2 = '2022/2/20'
+
+        # # convert string to date object
+        # d1 = datetime.strptime(str_d1, "%Y/%m/%d")
+        # d2 = datetime.strptime(str_d2, "%Y/%m/%d")
+
+        # # difference between dates in timedelta
+        # delta = d2 - d1
     
     def total_price(self):
         duration_of_stay = Booking.duration_of_stay(self)
@@ -62,7 +73,6 @@ class Booking(models.Model):
             stay = stay + datetime.timedelta(days=1)
             self.dates_of_stay.append(stay)
             i = i + datetime.timedelta(days=1)
-        print(self.dates_of_stay)
 
     def __str__(self):
         return f"{self.booking_id} for {self.pitch_ID.pitch_type}"

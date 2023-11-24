@@ -54,36 +54,33 @@ def make_booking(request):
 
             return_check_in_date = check_in.strftime("%Y%m%d")
 
-            booking_clash = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date=check_in).count()
-            ###
-            # new_date = datetime.datetime.now().date() + datetime.timedelta(days=2)
-            
-            # booking_clash = 0
+            bookings = Booking.objects.filter(pitch_ID=pitch_ID)
+            print(bookings.dates_of_stay)
 
-            # while check_date < date2:
-            #     print(check_date)
-            #     if check_date == new_date:
-            #         print("CLASH")
-            #         clash +=1
-            #     else:
-            #         print("OK")
-            #     check_date = check_date + datetime.timedelta(days=1)
-            #     print(clash)
-                
-            #     if clash >= 1:
-            #         print("Booking unsucessful")
-            ###
-
-            if booking_clash >= 1: #check dates_of_stay array and return appropriate message
-                messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
-                return redirect('make_booking')
-            else:
-                form.instance.user = user
-                form.save()
-                messages.success(
-                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+            # filter(check_in__gte={your form's checkin}) filter for check_in 
+           
+            for booking in bookings:
+                if booking == check_in:
+                    messages.error(request, f'{pitch_ID} is not available on {date}. Please check current bookings for availability')
+                    return redirect('make_booking')
+                else:
+                    form.instance.user = user
+                    form.save()
+                    messages.success(
+                        request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
 
                 return redirect('view_booking')
+
+            # if booking_clash >= 1: #check dates_of_stay array and return appropriate message
+            #     messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
+            #     return redirect('make_booking')
+            # else:
+            #     form.instance.user = user
+            #     form.save()
+            #     messages.success(
+            #         request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+
+            #     return redirect('view_booking')
         else:
             messages.warning(
                     request, f"Your booking was unsucessful. Please ensure the form was filled in correctly and your request doesn't clash with another booking")
@@ -92,6 +89,8 @@ def make_booking(request):
         'form': form
     }
     return render(request, 'make_booking.html', context)
+
+
 
 # view(read) only user's bookings
 class MyBookings(LoginRequiredMixin, ListView):
