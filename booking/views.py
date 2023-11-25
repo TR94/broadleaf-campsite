@@ -59,7 +59,7 @@ def make_booking(request):
             return_check_in_date = check_in.strftime("%Y%m%d")
 
             bookings = Booking.objects.filter(pitch_ID=pitch_ID)
-            print(bookings.dates_of_stay)
+            # print(bookings.dates_of_stay)
 
             # filter(check_in__gte={your form's checkin}) filter for check_in 
            

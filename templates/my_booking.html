@@ -2,32 +2,26 @@
 
 {% block content %}
 
-<!-- include modal with instructions for the website-->
-
-<div class="col-md-8 offset-md-2">
-    <div class="row">
-        <div class="col">
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
             <h3>Current bookings</h3>
             <p>View current bookings below for a given date or pitch type</p>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-3 my-2">
-                        <a class="btn btn-green" href="{% url 'make_booking' %}" role="button">Book Now</a>
-                    </div>
-                    <div class="col-12 col-md-3 my-2">
-                        <a class="btn btn-green" href="{% url 'view_booking' %}"role="button">Show All</a>
-                    </div>
-                    <div class="col-12 col-md-3 my-2">
-                        <button class="btn btn-green" href="{% url 'my_bookings' %}" role="button">My Bookings</button>
-                    </div>
-                </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4 my-2 d-flex justify-content-center">
+                <a class="btn btn-green btn-book" href="{% url 'make_booking' %}" role="button">Book Now</a>
             </div>
+            <div class="col-md-4 my-2 d-flex justify-content-cente">
+                <a class="btn btn-green btn-book" href="{% url 'view_booking' %}"role="button">Show All</a>
+            </div>
+        </div>
+    </div>
 
         <!-- booking table, template from bootstrap -->
-        <div class="row">
-            <div class = "col-md-8">
-                <table class="table table-striped">
-                    <thead>
+    <div class="row d-flex justify-content-center">
+        <div class = "col-md-8 ">
+            <table class="table table-striped">
+                <thead>
                     <tr>
                         <th scope="col">Pitch Type</th>
                         <th scope="col">Pitch</th>
@@ -35,52 +29,51 @@
                         <th scope="col">Duration (Days)</th>
                         <th colspan="2">Amend Booking</th>
                     </tr>
-                    </thead>
-                    {% for booking in booking_list %}
-                            <tbody>
-                                <td>{{ booking.pitch_ID.pitch_type }}</td>
-                                <td>{{ booking.pitch_ID }}</td>
-                                <td>{{ booking.check_in_date }}</td>
-                                <td>{{ booking.duration_of_stay }}</td>
-                                <td>
-                                    <a href="/edit/{{ booking.id }}">
-                                        <button class="btn btn-green btn-sm">Edit</button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
-                                        aria-label="Cancel" class="btn btn-green btn-sm">Cancel</button>
-                                </td>
+                </thead>
+                {% for booking in booking_list %}
+                    <tbody>
+                        <td>{{ booking.pitch_ID.pitch_type }}</td>
+                        <td>{{ booking.pitch_ID }}</td>
+                        <td>{{ booking.check_in_date }}</td>
+                        <td>{{ booking.duration_of_stay }}</td>
+                        <td>
+                            <a href="/edit/{{ booking.id }}">
+                                <button class="btn btn-green btn-sm">Edit</button>
+                            </a>
+                        </td>
+                        <td>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
+                                aria-label="Cancel" class="btn btn-danger btn-sm">Cancel</button>
+                        </td>
 
                                 <!-- modal for confirming cancellation of a booking -->
-                                <div class="modal" id="modal-cancel-{{ booking.booking_id }}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Cancel your booking</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to cancel this booking:</p>
-                                                <p>Name: {{ booking.last_name }}</p>
-                                                <p>Pitch number: {{ booking.pitch_ID}}</p>
-                                                <p>Check In Date: {{ booking.check_in_date }}</p>
-                                                <p>Duration (nights): {{ booking.duration }}</p>
-                                                <hr>
-                                                <p>Confirm cancellation by clicking "cancel booking"</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="/cancel/{{ booking.id }}">
-                                                    <button type="button" class="btn btn-green btn-sm">Cancel booking</button>
-                                                </a>
-                                                <a href="{% url 'my_bookings' %}">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                </a>
-                                            </div>
-                                        </div>
+                        <div class="modal" id="modal-cancel-{{ booking.booking_id }}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Cancel your booking</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to cancel this booking:</p>
+                                        <p>Name: {{ booking.last_name }}</p>
+                                        <p>Pitch number: {{ booking.pitch_ID}}</p>
+                                        <p>Check In Date: {{ booking.check_in_date }}</p>
+                                        <p>Duration (nights): {{ booking.duration }}</p>
+                                        <hr>
+                                        <p>Confirm cancellation by clicking "cancel booking"</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/cancel/{{ booking.id }}">
+                                            <button type="button" class="btn btn-danger btn-sm">Cancel booking</button>
+                                        </a>
+                                        <a href="{% url 'my_bookings' %}">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                        </a>
                                     </div>
                                 </div>
-
-                            </tbody>
+                            </div>
+                        </div>
+                    </tbody>
                     {% empty %}
                         <td>Sorry, you have no bookings.</td>
                     {% endfor %}

@@ -11,7 +11,9 @@ body {
     color: black;
     font-family: 'Nunito Sans', sans-serif;
 }
-
+.socials {
+    color: black;
+}
 footer {
     background-color: lightgreen;
 }
@@ -20,17 +22,21 @@ footer {
     background-color: lightgreen;
 }
 
+.btn-book {
+    min-width: 120px;
+}
+
 
 /*------------------------------------- Index.html --*/
 
 /* image: https://www.pexels.com/photo/scenic-autumn-landscape-with-a-river-18656974/ */
 
-.hero {
+#hero {
         background: url("../images/hero_img.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        min-height: 400px;
+        min-height: 500px;
 }
 
 /*------------------------------------- Booking.html --*/
@@ -47,11 +53,12 @@ footer {
     border-radius: 5px;
 }
 #facilities-img{
-    background: url("../images/toilets.jpg");
+    background: url("../images/facilities_sinks.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 400px;
+    margin-bottom: 10px;
     border-radius: 5px;
 }
 .carousel {
