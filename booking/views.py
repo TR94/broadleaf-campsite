@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product, Booking
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from .filters import BookingFilter
 from .forms import BookingForm
 
@@ -22,7 +22,11 @@ class ProductList(generic.ListView):
 # view with queryset Django filters from Youtube - BugBytes: https://www.youtube.com/watch?v=FTUxl5ZCMb8
 # view(read) all bookings 
 class BookingList(ListView):
-    queryset = Booking.objects.all()
+    
+    startdate = datetime.today()
+    enddate = startdate + timedelta(days=180)
+
+    queryset = Booking.objects.filter(check_in_date__range=[startdate, enddate])
     template_name = 'view_booking.html'
     context_object_name = 'booking'
 
