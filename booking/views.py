@@ -56,24 +56,20 @@ def make_booking(request):
             check_out = form.cleaned_data['check_out_date']
             num_guests = form.cleaned_data['number_of_guests']
 
-            return_check_in_date = check_in.strftime("%Y%m%d")
+            date = check_in.strftime("%d, %m, %Y")
 
-            bookings = Booking.objects.filter(pitch_ID=pitch_ID)
-            # print(bookings.dates_of_stay)
-
-            # filter(check_in__gte={your form's checkin}) filter for check_in 
+            bookings = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date__lte = check_in, check_out_date__gte = check_in).count()
            
-            for booking in bookings:
-                if booking == check_in:
-                    messages.error(request, f'{pitch_ID} is not available on {date}. Please check current bookings for availability')
-                    return redirect('make_booking')
-                else:
-                    form.instance.user = user
-                    form.save()
-                    messages.success(
-                        request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+            if bookings >=1:
+                messages.error(request, f'{pitch_ID} is not available on {date}. Please check current bookings for availability')
+                return redirect('make_booking')
+            else:
+                form.instance.user = user
+                form.save()
+                messages.success(
+                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
 
-                return redirect('view_booking')
+            return redirect('view_booking')
 
             # if booking_clash >= 1: #check dates_of_stay array and return appropriate message
             #     messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
