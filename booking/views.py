@@ -7,6 +7,7 @@ from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from .models import Product, Booking
 from datetime import datetime, date, timedelta
 from .filters import BookingFilter
@@ -29,6 +30,7 @@ class BookingList(ListView):
     queryset = Booking.objects.filter(check_in_date__range=[startdate, enddate])
     template_name = 'view_booking.html'
     context_object_name = 'booking'
+    context = {'today': datetime.today()}
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -70,20 +72,9 @@ def make_booking(request):
                     request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
 
             return redirect('view_booking')
-
-            # if booking_clash >= 1: #check dates_of_stay array and return appropriate message
-            #     messages.error(request, f'{pitch_ID} is not available on {return_check_in_date}.')
-            #     return redirect('make_booking')
-            # else:
-            #     form.instance.user = user
-            #     form.save()
-            #     messages.success(
-            #         request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
-
-            #     return redirect('view_booking')
         else:
             messages.warning(
-                    request, f"Your booking was unsucessful. Please ensure the form was filled in correctly and your request doesn't clash with another booking")
+                    request, "Your booking was unsucessful. Please ensure the form was filled in correctly and your request doesn't clash with another booking")
     form = BookingForm()
     context = {
         'form': form
@@ -97,12 +88,20 @@ class MyBookings(LoginRequiredMixin, ListView):
     model = Booking
     template_name = 'my_booking.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = timezone.now().date()
+        return context
+
     def get_queryset(self):
         return Booking.objects.filter(user=self.request.user)
 
 # edit (update) a booking - only bookings specific to that user
 def edit_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
+    
+    # if booking.check_in_date < datetime.today():
+    #     messages.warning(request, "Sorry, you cannot edit bookings in the past")
     
     if request.method == 'POST':
         form= BookingForm(request.POST, instance=booking)

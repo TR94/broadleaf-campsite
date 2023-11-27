@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tz %}
 
 {% block content %}
 
@@ -36,17 +37,21 @@
                         <td>{{ booking.pitch_ID }}</td>
                         <td>{{ booking.check_in_date }}</td>
                         <td>{{ booking.duration_of_stay }}</td>
-                        <td>
-                            <a href="/edit/{{ booking.id }}">
-                                <button class="btn btn-green btn-sm">Edit</button>
-                            </a>
-                        </td>
-                        <td>
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
-                                aria-label="Cancel" class="btn btn-danger btn-sm">Cancel</button>
-                        </td>
-
-                                <!-- modal for confirming cancellation of a booking -->
+                            {% if booking.check_in_date >= today %}
+                                <td>
+                                    <a href="/edit/{{ booking.id }}">
+                                        <button class="btn btn-green btn-sm">Edit</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
+                                        aria-label="Cancel" class="btn btn-danger btn-sm">Cancel</button>
+                                </td>
+                            {% else %}
+                                <td>N/A</td>
+                                <td></td>
+                            {% endif %}
+                        <!-- modal for confirming cancellation of a booking -->
                         <div class="modal" id="modal-cancel-{{ booking.booking_id }}">
                             <div class="modal-dialog">
                                 <div class="modal-content">
