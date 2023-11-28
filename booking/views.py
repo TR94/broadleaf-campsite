@@ -20,14 +20,17 @@ class ProductList(generic.ListView):
     queryset = Product.objects.values_list("pitch_type")
     template_name = 'index.html'
 
-# view with queryset Django filters from Youtube - BugBytes: https://www.youtube.com/watch?v=FTUxl5ZCMb8
-# view(read) all bookings 
+
+# view with queryset Django filters from Youtube - BugBytes:
+# https://www.youtube.com/watch?v=FTUxl5ZCMb8
+# view(read) all bookings
 class BookingList(ListView):
-    
+
     startdate = date.today()
     enddate = startdate + timedelta(days=180)
 
-    queryset = Booking.objects.filter(check_in_date__range=[startdate, enddate]).order_by('check_in_date')
+    queryset = Booking.objects.filter(check_in_date__range=[startdate,
+                enddate]).order_by('check_in_date')
     template_name = 'view_booking.html'
     context_object_name = 'booking'
     context = {'today': datetime.today()}
@@ -41,6 +44,7 @@ class BookingList(ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = self.filterset.form
         return context
+
 
 # make (create) a booking
 @login_required()
@@ -59,10 +63,12 @@ def make_booking(request):
             num_guests = form.cleaned_data['number_of_guests']
 
             date = check_in.strftime("%d, %m, %Y")
-            
-            bookings = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date__lte = check_in, check_out_date__gte = check_in).count()
-           
-            if bookings >=1:
+
+            bookings = Booking.objects.filter(pitch_ID=pitch_ID,
+                        check_in_date__lte=check_in,
+                        check_out_date__gte=check_in).count()
+
+            if bookings >= 1:
                 messages.error(request, f'{pitch_ID} is not available on {date}. Please check current bookings for availability')
                 return redirect('make_booking')
             else:
@@ -82,7 +88,6 @@ def make_booking(request):
     return render(request, 'make_booking.html', context)
 
 
-
 # view(read) only user's bookings
 class MyBookings(LoginRequiredMixin, ListView):
     model = Booking
@@ -94,14 +99,16 @@ class MyBookings(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Booking.objects.filter(user=self.request.user).order_by('check_in_date')
+        return Booking.objects.filter(
+            user=self.request.user).order_by('check_in_date')
+
 
 # edit (update) a booking - only bookings specific to that user
 def edit_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
 
     if request.method == 'POST':
-        form= BookingForm(request.POST, instance=booking)
+        form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             form.save()
             messages.success(request, f"Your booking has been successfully updated.")
@@ -112,7 +119,7 @@ def edit_booking(request, booking_id):
         'form': form
     }
     return render(request, 'edit_booking.html', context)
-   
+
 
 # cancel (delete) a booking - user only
 @login_required()
