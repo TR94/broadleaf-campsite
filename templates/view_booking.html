@@ -22,10 +22,38 @@
                     <div class="col-md-4 my-2 d-flex justify-content-center">
                         <a class="btn btn-green btn-book" href="{% url 'my_bookings' %}" role="button">My Bookings</a>
                     </div>
+                    <div class="col-md-4 my-2 d-flex justify-content-center">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
+                            aria-label="Cancel" class="btn btn-warning btn-book">Terms</button>
+                    </div>
                 </div>
             </div>
             <hr>
         </div>
+
+        <!-- modal for confirming cancellation of a booking -->
+        <div class="modal" id="modal-cancel-{{ booking.booking_id }}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Booking terms</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>By making a booking you are accepting the following terms:</p>
+                        <p>- A 25% deposit will be taken by phone call within 48 hours of making the booking</p>
+                        <p>- Payment of the booking will be made on-site on the first day</p>
+                        <p>- Incorrectly made bookings may be subject to extra charges</p>
+                        <p>- Incorrectly made bookings may be refused </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'my_bookings' %}">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- booking table, template from bootstrap -->
         <div class="row d-flex justify-content-center">
             <div class="col-md-8">

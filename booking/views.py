@@ -13,8 +13,8 @@ from datetime import datetime, date, timedelta
 from .filters import BookingFilter
 from .forms import BookingForm
 
-# create, view(read), edit(update), cancel(delete)
 
+# create, view(read), edit(update), cancel(delete)
 class ProductList(generic.ListView):
     model = Product
     queryset = Product.objects.values_list("pitch_type")
@@ -59,7 +59,7 @@ def make_booking(request):
             num_guests = form.cleaned_data['number_of_guests']
 
             date = check_in.strftime("%d, %m, %Y")
-
+            
             bookings = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date__lte = check_in, check_out_date__gte = check_in).count()
            
             if bookings >=1:
@@ -69,8 +69,7 @@ def make_booking(request):
                 form.instance.user = user
                 form.save()
                 messages.success(
-                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully. "
-                        f"The price for your booking is £{Booking.booking_price} to be paid on arrival")
+                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
 
             return redirect('view_booking')
         else:
@@ -91,7 +90,7 @@ class MyBookings(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['today'] = timezone.now().date()
+        context['today'] = date.today()
         return context
 
     def get_queryset(self):
