@@ -27,7 +27,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'tywn!h9cf)ztvx_u9ylcl*dp(1(a-__@^us!p!zelmm$0v+9cy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['8000-tr94-broadleafcampsit-qk4kluzqx1i.ws-eu106.gitpod.io','broadleaf-booking-6b23cb1d45f9.herokuapp.com', 'localhost']
 
@@ -99,23 +99,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'broadleaf.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
      'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
