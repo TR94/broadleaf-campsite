@@ -32,7 +32,7 @@ footer {
 /* image: https://www.pexels.com/photo/scenic-autumn-landscape-with-a-river-18656974/ */
 
 #hero {
-        background: url("../images/hero_img.jpg");
+        background: url("https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701185573/static/images/hero_img.da67ea9c09af.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -45,7 +45,7 @@ footer {
 /*------------------------------------- About.html --*/
 
 #about-img {
-    background: url("../images/about-img.jpg");
+    background: url("https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701185567/static/images/about-img.9b8cc068c563.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -53,7 +53,7 @@ footer {
     border-radius: 5px;
 }
 #facilities-img{
-    background: url("../images/facilities_sinks.jpg");
+    background: url("https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701185570/static/images/facilities_sinks.80f60dea97bf.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

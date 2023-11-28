@@ -15,6 +15,7 @@ from .forms import BookingForm
 
 
 # create, view(read), edit(update), cancel(delete)
+
 class ProductList(generic.ListView):
     model = Product
     queryset = Product.objects.values_list("pitch_type")
@@ -99,12 +100,19 @@ class MyBookings(LoginRequiredMixin, ListView):
 # edit (update) a booking - only bookings specific to that user
 def edit_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
-    
+    bookings = Booking.objects.filter(pitch_ID=pitch_ID, check_in_date__lte = check_in, check_out_date__gte = check_in).count()
+
     if request.method == 'POST':
         form= BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            form.save()
-            return redirect('view_booking')
+            if bookings >=1:
+                messages.error(request, f'{pitch_ID} is not available on {date}. Please check current bookings for availability')
+                return redirect('view_booking')
+            else:
+                form.save()
+                messages.success(
+                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+                return redirect('view_booking')
 
     form = BookingForm(instance=booking)
     context = {
