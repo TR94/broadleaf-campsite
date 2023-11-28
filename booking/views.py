@@ -107,7 +107,7 @@ def edit_booking(request, booking_id):
             form.save()
             messages.success(
                 request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
-            return redirect('view_booking')
+        return redirect('view_booking')
 
     form = BookingForm(instance=booking)
     context = {
