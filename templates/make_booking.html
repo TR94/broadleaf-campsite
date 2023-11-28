@@ -6,15 +6,44 @@
     <div class="row">
         <div class="col">
             <h3>Make a new booking</h3>
-            <form id="booking-form" method="POST">
-                {% csrf_token %}
-                {{ form.as_p}}
-                <p>
-                    <button class="btn btn-green" type="submit" role="button">Submit</button>
-                <hr>
-                <a class="btn btn-secondary" href="{% url 'view_booking' %}" role="button">Go Back</a>
-                </p>
-            </form>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#pitch_id" 
+                            aria-label="Cancel" class="btn btn-warning btn-book">Pitch ID Explained</button>
+            
+            <!-- modal for confirming cancellation of a booking -->
+            <div class="modal" id="pitch_id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Pitch ID Explained:</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>C = Caravan</p>
+                            <p>G = Glamping</p>
+                            <p>M = Motorhome</p>
+                            <p>T = Tent</p>
+                            <p>V = Van (Day van or Campervan)</p>
+                        <div class="modal-footer">
+                            <a href="{% url 'make_booking' %}">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <form id="booking-form" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p}}
+                    <p>
+                        <button class="btn btn-green" type="submit" role="button">Submit</button>
+                    <hr>
+                    <a class="btn btn-secondary" href="{% url 'view_booking' %}" role="button">Go Back</a>
+                    </p>
+                </form>
+            </div>
         </div>
     </div>
 </section>

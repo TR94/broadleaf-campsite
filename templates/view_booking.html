@@ -23,7 +23,7 @@
                         <a class="btn btn-green btn-book" href="{% url 'my_bookings' %}" role="button">My Bookings</a>
                     </div>
                     <div class="col-md-4 my-2 d-flex justify-content-center">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-cancel-{{ booking.booking_id }}" 
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#terms" 
                             aria-label="Cancel" class="btn btn-warning btn-book">Terms</button>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- modal for confirming cancellation of a booking -->
-        <div class="modal" id="modal-cancel-{{ booking.booking_id }}">
+        <div class="modal" id="terms">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -46,7 +46,7 @@
                         <p>- Incorrectly made bookings may be refused </p>
                     </div>
                     <div class="modal-footer">
-                        <a href="{% url 'my_bookings' %}">
+                        <a href="{% url 'view_booking' %}">
                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         </a>
                     </div>
