@@ -13,6 +13,7 @@ def AboutView(request, *args, **kwargs):
         },
     )
 
+
 def ContactView(request):
     # Renders the contact page
     contact = Contact.objects.all().first()

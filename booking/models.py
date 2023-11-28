@@ -1,61 +1,130 @@
-import uuid
-import datetime
-from datetime import date
-from django.db import models
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator 
-from django.contrib.postgres.fields import ArrayField
-from cloudinary.models import CloudinaryField
-
-PITCH_CHOICES = (("Tent", "Tent"), ("Caravan", "Caravan"), ("Motorhome", "Motorhome"), ("Van", "Van"), ("Glamping", "Glamping"))
-CHECK_OUT_TIME = ((11, "11am"), (11, "11am"))
-CHECK_IN_TIME = ((3, "3pm"), (3, "3pm"))
-
-class Product(models.Model):
-    pitch_type = models.TextField(choices=PITCH_CHOICES, default=0)
-    pitch_ID = models.CharField(max_length = 6, unique = True)
-    check_in_time = models.IntegerField(choices=CHECK_IN_TIME, default=0)
-    check_out_time = models.IntegerField(choices=CHECK_OUT_TIME, default=0)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
-    pitch_image = CloudinaryField('image', default='placeholder')
-
-    def __str__(self):
-        return self.pitch_ID
+from django.views import generic
+from django.views.generic.list import ListView
+from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from .models import Product, Booking
+from datetime import datetime, date, timedelta
+from .filters import BookingFilter
+from .forms import BookingForm
 
 
-# UUID field from StackOverflow resource: https://stackoverflow.com/questions/32528224/how-to-use-uuid
-class Booking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
-    first_name = models.CharField(max_length=15)
-    last_name = models.CharField(max_length=25)
-    pitch_ID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="booking_pitch", to_field="pitch_ID")
-    booking_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True) 
-    check_in_date = models.DateField(default=date.today)
-    check_out_date = models.DateField(default=date.today)
-    duration = models.IntegerField()
-    number_of_guests = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    booking_price = models.FloatField()
+# create, view(read), edit(update), cancel(delete)
+class ProductList(generic.ListView):
+    model = Product
+    queryset = Product.objects.values_list("pitch_type")
+    template_name = 'index.html'
 
-    def duration_of_stay(self):
-        duration = self.check_out_date - self.check_in_date
-        duration_of_stay = duration.days
-        return duration_of_stay
-    
-    def total_price(self):
-        duration_of_stay = Booking.duration_of_stay(self)
-        total_price = self.pitch_ID.price * int(duration_of_stay)
-        return total_price
 
-    def __str__(self):
-        return f"{self.booking_id} for {self.pitch_ID.pitch_type}"
+# view with queryset Django filters from Youtube - BugBytes:
+# https://www.youtube.com/watch?v=FTUxl5ZCMb8
+# view(read) all bookings
+class BookingList(ListView):
 
-    def save(self, *args, **kwargs):
-        if not self.duration:
-            self.duration = self.duration_of_stay()
+    startdate = date.today()
+    enddate = startdate + timedelta(days=180)
 
-        if not self.booking_price:
-            self.booking_price = self.total_price()
+    queryset = Booking.objects.filter(check_in_date__range=[startdate,
+                enddate]).order_by('check_in_date')
+    template_name = 'view_booking.html'
+    context_object_name = 'booking'
+    context = {'today': datetime.today()}
 
-        super(Booking, self).save(*args, **kwargs)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = BookingFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
+
+
+# make (create) a booking
+@login_required()
+def make_booking(request):
+
+    user = get_object_or_404(User, username=request.user)
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            pitch_ID = form.cleaned_data['pitch_ID']
+            check_in = form.cleaned_data['check_in_date']
+            check_out = form.cleaned_data['check_out_date']
+            num_guests = form.cleaned_data['number_of_guests']
+
+            date = check_in.strftime("%d, %m, %Y")
+
+            bookings = Booking.objects.filter(pitch_ID=pitch_ID,
+                        check_in_date__lte=check_in,
+                        check_out_date__gte=check_in).count()
+
+            if bookings >= 1:
+                messages.error(request, f'{pitch_ID} is not available on {date}. Please check current bookings for availability')
+                return redirect('make_booking')
+            else:
+                form.instance.user = user
+                form.save()
+                messages.success(
+                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+
+            return redirect('view_booking')
+        else:
+            messages.warning(
+                    request, "Your booking was unsucessful. Please ensure the form was filled in correctly and your request doesn't clash with another booking")
+    form = BookingForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'make_booking.html', context)
+
+
+# view(read) only user's bookings
+class MyBookings(LoginRequiredMixin, ListView):
+    model = Booking
+    template_name = 'my_booking.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = date.today()
+        return context
+
+    def get_queryset(self):
+        return Booking.objects.filter(
+            user=self.request.user).order_by('check_in_date')
+
+
+# edit (update) a booking - only bookings specific to that user
+def edit_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Your booking has been successfully updated.")
+            return redirect('view_booking')
+
+    form = BookingForm(instance=booking)
+    context = {
+        'form': form
+    }
+    return render(request, 'edit_booking.html', context)
+
+
+# cancel (delete) a booking - user only
+@login_required()
+def cancel_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    booking.delete()
+    messages.success(request, f"Your booking has been successfully cancelled.")
+    return redirect('view_booking')

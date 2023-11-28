@@ -15,7 +15,6 @@ from .forms import BookingForm
 
 
 # create, view(read), edit(update), cancel(delete)
-
 class ProductList(generic.ListView):
     model = Product
     queryset = Product.objects.values_list("pitch_type")
@@ -120,6 +119,5 @@ def edit_booking(request, booking_id):
 def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
     booking.delete()
+    messages.success(request, f"Your booking has been successfully cancelled.")
     return redirect('view_booking')
-
-
