@@ -98,22 +98,22 @@ class MyBookings(LoginRequiredMixin, ListView):
         return Booking.objects.filter(user=self.request.user).order_by('check_in_date')
 
 # edit (update) a booking - only bookings specific to that user
-    def edit_booking(request, booking_id):
-        booking = get_object_or_404(Booking, id=booking_id)
+def edit_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
 
-        if request.method == 'POST':
-            form= BookingForm(request.POST, instance=booking)
-            if form.is_valid():
-                form.save()
-                messages.success(
-                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
-                return redirect('view_booking')
+    if request.method == 'POST':
+        form= BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+            return redirect('view_booking')
 
-        form = BookingForm(instance=booking)
-        context = {
-            'form': form
-        }
-        return render(request, 'edit_booking.html', context)
+    form = BookingForm(instance=booking)
+    context = {
+        'form': form
+    }
+    return render(request, 'edit_booking.html', context)
    
 
 # cancel (delete) a booking - user only
