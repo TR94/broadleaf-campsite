@@ -16,12 +16,11 @@ The target audience for this website is predominately people who want to get out
 
 Based on the offerings of the campsite, a set of user personas have been developed that capture the customer base likely to be attracted to the website. These user personas will be used to understand different customer perspectives and help guide the design of the website to make sure it is inclusive for the whole customer base.
 
-- Offering 1: Tent pitch - User persona for someone who wants a tent pitch.
-    - <a href="/static/readme_files/Milly - Tent Pitch Persona.png" target="_blank">Tent pitch persona</a>
-- Offering 2: Day van pitch - User persona for someone who wants somewhere to park their day van.
-- Offering 3: Caravan pitch - User persona for someone who wants somewhere to park their caravan.
-- Offering 4: Motorhome/Campervan pitch - User persona for someone who wants somewhere to park their motorhome or caravan.
-- Offering 5: Glamping - User persona for someone who wants a luxury camping experience.
+- Offering 1: Tent pitch - User persona for someone who wants a tent pitch. <a href="https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701211021/static/readme_files/Milly%20-%20Tent%20Pitch%20Persona.31987933122b.png" target="_blank">Tent pitch persona</a>
+- Offering 2: Day van pitch - User persona for someone who wants somewhere to park their day van. <a href="https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701211020/static/readme_files/Ricky%20and%20Sarah%20-%20Dayvan%20persona.ad47b19091db.png" target="_blank">Day Van persona</a>
+- Offering 3: Caravan pitch - User persona for someone who wants somewhere to park their caravan. <a href="https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701211022/static/readme_files/Smith%20family%20-%20caravan%20persona.3914d2a1ec49.png" target="_blank">Caravan persona</a>
+- Offering 4: Motorhome/Campervan pitch - User persona for someone who wants to park their motorhome/campervan. <a href="https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701211022/static/readme_files/Trevor%20and%20Amanda%20-%20Motorhome%20persona.68b8785b0a17.png" target="_blank">Motorhome persona</a>
+- Offering 5: Glamping - User persona for someone who wants a luxury camping experience. <a href="https://res.cloudinary.com/dtgt7gfx7/image/upload/v1701211019/static/readme_files/Martin%20and%20Anna%20-%20Glamping%20persona.afefdb3457db.png" target="_blank">Glamping persona</a>
 
 ## Agile management 
 The project will be managed with an Agile methodology. To cater for this GitHub projects has been used to track the progress of the project and manage each iteration and its subsequent tasks. The tasks are based around Epics and User Stories which are defined below for the BroadLead campsite project.
@@ -189,11 +188,11 @@ Based on the Strategy above, the content requirements will be based on the user 
 ## Structure
 Based on the strategy and scope above the site map shows a tree diagram of how the website will be constructed. This gives a brief overview of the pages and content:
 
-![Site Map for BroadLeaf campsite](/assets/readme_images/site_map.png)
+![Site Map for BroadLeaf campsite](/static/readme_files/BroadLeaf_site_map.png)
 
 From a database perspective the tables and relationships have been mapped out using the diagram below:
 
-![Database model for BroadLeaf campsite](/assets/readme_images/site_map.png)
+![Database model for BroadLeaf campsite](/static/readme_files/BroadLeaf_database_diagram.png)
 
 ## Skeleton
 Wire-framing the pages in the early stages of design allows initial layouts and ideas to be visualised and edited easily without the need for coding. The building blocks of each page can be discussed and agreed upfront being committed to code. This approach allows the coding of the site to be much closer to final desired outcome which, in the long run, saves time and money.
@@ -203,26 +202,28 @@ Balsamic was used to create the following wireframes:
 ### Home Page: 
 The Home page wireframes can be seen below, these consider the layout on a full size screen and a mobile screen:
 
-![Home page wireframe full width](/assets/readme_images/Home%20-%20Full%20Width%20wireframe.png)
+![Home page wireframe full width](/static/readme_files/wireframe_home_desktop.png)
 
-![Home page wireframe mobile width](/assets/readme_images/Home%20-%20mobile%20screen%20wireframe.png)
+![Home page wireframe mobile width](/static/readme_files/wireframe_home_mobile.png)
 
 ### View bookings page:
 Users will need to see the current bookings to check availability, the wireframes for full-size screens for this can be seen below. For mobile users the format will scale-down.
 
-![View bookings wireframe full width](/assets/readme_images/Home%20-%20Full%20Width%20wireframe.png)
+![View bookings wireframe full width](/static/readme_files/wireframe_view_bookings.png)
 
 ### About page:
 The About page holds a lot of information for the site, this will be responsive to ensure it is mobile friendly. The layouts on a full size screen and a mobile screen can be seen below:
 
-![About page wireframe full width](/assets/readme_images/Gallery%20-%20wide%20screen%20wireframe.png)
+![About page wireframe full width](/static/readme_files/wireframe_about_desktop.png)
 
-![About page wireframe mobile width](/assets/readme_images/Gallery%20-%20mobile%20screen%20wireframe.png)
+![About page wireframe mobile width](/static/readme_files/wireframe_about_mobile.png)
 
 ### Contact Page:
-The Contact page wireframe can be seen below:
+The Contact page wireframe can be seen below in mobile and desktop screen sizes:
 
-![Contact page wireframe](/assets/readme_images/Sign-Up%20wireframe.png)
+![Contact page wireframe full width](/static/readme_files/wireframe_contact_desktop.png)
+
+![Contact page wireframe mobile width](/static/readme_files/wireframe_contact_mobile.png)
 
 At this stage, the wireframes are reviewed against the original strategy and goals of the project to ensure they’re aligned satisfactorily. This where the opportunity to 
 There is an opportunity to circle back and update as required to achieve the desired output before coding begins.
@@ -238,6 +239,8 @@ The final colour palette is:
 Hex colour #FFFFFF, “white” used for background space 
 Hex colour #90EE90,  “light green” used for the logo and footer banding
 Standard body text colour (black) used for all text
+
+![Colour pallette](/static/readme_files/palette_recommendation.png)
 
 ### Font:
 For the logo, a modern and clean looking text is used. GoogleFonts provides “Roboto” in a regular 400 weight option.
@@ -263,62 +266,62 @@ The logo and text:
 - The font chosen is clean and modern with colours that are contrasting to ensure easy reading.
 - The navigation links are consistent across the website which makes moving around the site easy and displays the information in a clear manner. For smaller screens, the nav bar shrinks to a hamburger icon to save space on the screen.
 
-![Navigation bar screen grab](/assets/readme_images/nav_bar.PNG)
+![Navigation bar screen grab](/static/readme_files/broadleaf_navbar.png)
 
 ## Content for the home page
 - This section provides a clear overview of the campsite. 
 - The header text is styled to continue the clean and simple theme.
 - The image has been carefully chosen to allow an effective display responsive to different screen sizes.
 
-![Header screen grab](/assets/readme_images/Header_hero_image.PNG)
+![Header screen grab](/static/readme_files/broadleaf_home.png)
 
 ## About Us
 Content meets the user stories explaining about the campsite and the facilities available 
 Carousel of images to display the campsite 
 
-![About-Us screen grab](/assets/readme_images/About_Us.PNG)
+![About-Us screen grab](/static/readme_files/broadleaf_about.png)
 
 ## Contact us 
 Contact information and a location map
 Contact form sent to an dedicated inbox
 
-![Contact-Us screen grab](/assets/readme_images/Contact-Us.PNG)
+![Contact-Us screen grab](/static/readme_files/broadleaf_contact.png)
 
 ## The Footer
 Contains branding, contact information and socials links
 
-![Footer screen grab](/assets/readme_images/Footer.PNG)
+![Footer screen grab](/static/readme_files/broadleaf_footer.png)
 
 ## Booking
 Current books table displays all bookings
 Buttons to filter the bookings by date and pitch
 
-![Bookings screen grab](/assets/readme_images/Contact-Us.PNG)
+![Bookings screen grab](/static/readme_files/broadleaf_view_bookings.png)
 
 ## My bookings
 Views booking that are associated to the logged in user 
 Can edit and cancel bookings that aren’t historical 
 
-![My bookings screen grab](/assets/readme_images/Contact-Us.PNG)
+![My bookings screen grab](/static/readme_files/broadleaf_user_bookings.png)
 
 ## Edit booking
 Form to edit the booking based on the current details 
 
-![Edit booking screen grab](/assets/readme_images/Contact-Us.PNG)
+![Edit booking screen grab](/static/readme_files/broadleaf_edit_booking.png)
 
 ## Cancel booking
 Modal that asks for confirmation before cancelling the booking
 
-![Cancel booking screen grab](/assets/readme_images/Contact-Us.PNG)
+![Cancel booking screen grab](/static/readme_files/broadleaf_cancel_booking.png)
 
 ## Features to add in the future
-Make the booking more interactive so there is feedback when the user is selecting dates to whether or not they are available such as a calendar which has green / red days
-Takes payment at the point of booking 
-Confirmation emails automatically sent for the booking  
+- Make the booking more interactive so there is feedback when the user is selecting dates to whether or not they are available such as a calendar which has green / red days
+- Takes payment at the point of booking 
+- Confirmation emails automatically sent for the booking  
 
 # Technologies Used
 **Coding languages used:**
--   HTML5
+- HTML5
 - CSS3
 - Python3\
 **Frameworks:**
@@ -328,13 +331,13 @@ Confirmation emails automatically sent for the booking
 
 ## External resources used:
 ### Google Fonts:
-Using a CDN link within the <head>, the font families “Roboto” and “Nunito sans” are used throughout the website. 
+Using a CDN link within the `<head>`, the font families “Roboto” and “Nunito sans” are used throughout the website. 
 
 ### Font Joy:
 Used to pair the “Robot” logo font with a suitable body text font - this was “Nunito sans”.
 
 ### Font Awesome:
-Using a CDN link within the <head>, icons are linked into the base.html template. These include the “BroadLeaf” logo icon as well as visual icons throughout the site (such as social media links).
+Using a CDN link within the `<head>`, icons are linked into the base.html template. These include the “BroadLeaf” logo icon as well as visual icons throughout the site (such as social media links).
 
 ### Am I Responsive?:
 Used to test out how friendly the site is across various screen sizes. The responsive nature of the site is shown at the top of this document in the mock-up. 
@@ -355,7 +358,10 @@ Cloud based storage for images and static files which remains stable to ensure l
 # Accessibility 
 Accessibility is a key consideration for any website which ensures the content is accessible to all. For this website the following aspects have been included:
 - Aria labels on links to social media websites and navigation links 
-- Alt labels on the images   
+- Alt labels on the images
+- Using Chrome dev tools, the lighthouse score for this site is 97
+
+![Lighthouse accessibility score](/static/readme_files/lighthouse_accessibility.png)
 
 # Testing
 ## Manual Testing
@@ -846,7 +852,6 @@ Main images not displaying after deployment. Fixed by changing the file path in 
 Issues still remaining in the GitHub project:
 - Editing a booking allows bookings to overlap, needs a check within the edit_booking view to make sure bookings are overlapping 
 - Check out date can be before the check in date giving a negative duration of stay. View needs to have some logic added to make sure check out date is greater than check in date.
-
 
 # Deployment 
 
