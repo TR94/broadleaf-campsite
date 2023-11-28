@@ -29,10 +29,11 @@
         <!-- booking table, template from bootstrap -->
         <div class="row d-flex justify-content-center">
             <div class="col-md-8">
-                <p class="underline">Filter our bookings table: </p>
+                <p>Filter our bookings table: </p>
+                <p>Date format must be: YYYY-MM-DD </p>
                 <form method="GET" action="{% url 'view_booking' %}">
                     {{ form.as_p }}
-                    <input type="submit" value="Submit" class="btn btn-green"/>
+                    <input type="submit" value="Filter" class="btn btn-green"/>
                 </form>
             <hr>
             </div>

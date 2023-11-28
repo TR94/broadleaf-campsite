@@ -9,8 +9,14 @@ class DateInput(forms.DateInput):
 class BookingFilter(django_filters.FilterSet):
     class Meta: 
         model = Booking
-        widgets = {'check_in_date': DateInput()}
         fields = [
             'check_in_date', 
             'pitch_ID',
         ]
+        widgets = {'check_in_date': DateInput(
+            format=('%Y-%m-%d'),
+            attrs={'class': 'form-control', 
+               'placeholder': 'Select a date',
+               'type': 'date'
+            }),
+        }

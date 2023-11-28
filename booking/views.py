@@ -24,10 +24,10 @@ class ProductList(generic.ListView):
 # view(read) all bookings 
 class BookingList(ListView):
     
-    startdate = datetime.today()
+    startdate = date.today()
     enddate = startdate + timedelta(days=180)
 
-    queryset = Booking.objects.filter(check_in_date__range=[startdate, enddate])
+    queryset = Booking.objects.filter(check_in_date__range=[startdate, enddate]).order_by('check_in_date')
     template_name = 'view_booking.html'
     context_object_name = 'booking'
     context = {'today': datetime.today()}
@@ -69,7 +69,8 @@ def make_booking(request):
                 form.instance.user = user
                 form.save()
                 messages.success(
-                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully.")
+                    request, f"Your booking for a {pitch_ID.pitch_type}, Pitch Number: {pitch_ID} has been made successfully. "
+                        f"The price for your booking is £{Booking.booking_price} to be paid on arrival")
 
             return redirect('view_booking')
         else:
@@ -94,14 +95,11 @@ class MyBookings(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Booking.objects.filter(user=self.request.user)
+        return Booking.objects.filter(user=self.request.user).order_by('check_in_date')
 
 # edit (update) a booking - only bookings specific to that user
 def edit_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
-    
-    # if booking.check_in_date < datetime.today():
-    #     messages.warning(request, "Sorry, you cannot edit bookings in the past")
     
     if request.method == 'POST':
         form= BookingForm(request.POST, instance=booking)

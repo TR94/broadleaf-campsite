@@ -8,14 +8,6 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class BookingForm(forms.ModelForm):
-# date input widget from: https://www.letscodemore.com/blog/how-to-add-date-input-widget-in-django-forms/
-    # first_name = forms.CharField(initial = 'First Name', required=True)
-    # last_name = forms.CharField(initial = 'Last Name', required=True)
-    # pitch_ID = forms.MultipleChoiceField(initial = '', required=True)
-    # check_in_date = forms.DateField(initial=date.today, required=True) 
-    # check_out_date = forms.DateField(initial=date.today, required=True) 
-    # number_of_guests = forms.IntegerField(initial=1, required=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
-
     class Meta:
         model = Booking
         fields = ['first_name', 'last_name', 'pitch_ID', 'check_in_date', 'check_out_date', 'number_of_guests']

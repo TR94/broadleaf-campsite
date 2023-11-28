@@ -39,17 +39,25 @@ class Booking(models.Model):
 
     def duration_of_stay(self):
         
-        out_string = self.check_out_date.strftime("%Y%m%d")
-        in_string = self.check_in_date.strftime("%Y%m%d")
-        out_int = int(out_string)
-        in_int = int(in_string)
-        duration_of_stay =  out_int - in_int
+        # out_string = self.check_out_date.strftime("%Y%m%d")
+        # in_string = self.check_in_date.strftime("%Y%m%d")
+        # out_int = int(out_string)
+        # in_int = int(in_string)
+        # duration_of_stay =  out_int - in_int
+
+        duration = self.check_out_date - self.check_in_date
+        duration_of_stay = duration.days
+        print(duration_of_stay)
+
+        # check_in_date = date.today()
+        # check_out_date = date.today() + timedelta(days=10)
+        # duration = check_out_date - check_in_date
 
         return duration_of_stay
     
     def total_price(self):
         duration_of_stay = Booking.duration_of_stay(self)
-        total_price = self.pitch_ID.price * duration_of_stay
+        total_price = self.pitch_ID.price * int(duration_of_stay)
         return total_price
 
     def calculate_dates_of_stay(self):
